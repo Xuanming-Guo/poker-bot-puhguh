@@ -46,5 +46,13 @@
     "latest_organizer_model_and_docs_tests_passed": 11
   },
   "source_vet_findings": 0,
-  "status": "verified baseline prepared for publication"
+  "status": "verified published baseline",
+  "repository": "https://github.com/Xuanming-Guo/poker-bot-puhguh",
+  "reproducibility": {
+    "shared_scaffold_revision": "b852bd52c48cffe0e203b669a07fb198e36fff8e",
+    "shared_tracked_files_unchanged": 50,
+    "model_and_docs_tests_passed": 11,
+    "official_submit_clean_validator_passed": true,
+    "regenerated_pickle_identical": true
+  }
 }

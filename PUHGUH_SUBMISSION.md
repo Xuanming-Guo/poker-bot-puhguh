@@ -24,3 +24,9 @@ matches. Stacks reset each hand, with 500 chips and fixed 10/20 blinds.
 This standalone submission contains the team's files. To run locally, place
 both submission files in a checkout of the organizer's runner and install
 its pinned dependencies. No GPU or extra training data is required at runtime.
+
+The shared runner, tests and evaluator are included unchanged from the pinned
+organizer revision. The repository therefore supports the organizer's normal
+local workflow. A fresh isolated checkout passed all 11 model/API documentation
+tests and `python -m submit --team puhguh --out generated`. The regenerated
+pickle was byte-for-byte identical to the committed verified artifact.
