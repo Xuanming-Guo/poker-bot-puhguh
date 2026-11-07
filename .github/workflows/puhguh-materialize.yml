@@ -1,0 +1,42 @@
+name: Materialize verified Puhguh artifact
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/puhguh-materialize.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Restore and verify the exact binary submission
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import os, json, urllib.request, hashlib, base64
+          repo = os.environ['GH_REPOSITORY']
+          assert repo == 'Xuanming-Guo/poker-bot-puhguh'
+          root = 'https://api.github.com/repos/' + repo
+          headers = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'User-Agent': 'puhguh-publication'}
+          def api(path, data=None):
+              request = urllib.request.Request(root + path, data=None if data is None else json.dumps(data).encode(), headers=headers, method='GET' if data is None else 'PUT')
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  return json.load(response)
+          source = api('/contents/model.py?ref=main')
+          source_bytes = base64.b64decode(source['content'])
+          assert hashlib.sha256(source_bytes).hexdigest() == '958039d9f09d684fd7b76418cbb1faf2dc548a19830640a6e10901cd1a841a8a'
+          artifact = api('/contents/puhguh.pkl?ref=main')
+          payload = base64.b64decode(artifact['content'])
+          if hashlib.sha256(payload).hexdigest() != 'c14ab2edf6afeda7bf433e6576f1dd10ede7247676dec62a54e74aee85492099':
+              payload = base64.b64decode(payload, validate=True)
+          assert len(payload) == 45562
+          assert hashlib.sha256(payload).hexdigest() == 'c14ab2edf6afeda7bf433e6576f1dd10ede7247676dec62a54e74aee85492099'
+          result = api('/contents/puhguh.pkl', {'branch': 'main', 'sha': artifact['sha'], 'message': 'Materialize exact verified Puhguh binary', 'content': base64.b64encode(payload).decode('ascii')})
+          verified = api('/contents/puhguh.pkl?ref=main')
+          assert hashlib.sha256(base64.b64decode(verified['content'])).hexdigest() == 'c14ab2edf6afeda7bf433e6576f1dd10ede7247676dec62a54e74aee85492099'
+          print('Verified exact model.py and puhguh.pkl. Commit:', result['commit']['sha'])
+          PY
