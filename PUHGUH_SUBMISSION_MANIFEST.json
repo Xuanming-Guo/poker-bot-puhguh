@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "team": "puhguh",
+  "strategy": "ContextValueModel",
+  "payload_sha256": "e2974c821624ce1744d63752898173fb20a7a9e3119308d4935f2d8defdb4a03",
+  "upload_files": {
+    "model.py": {
+      "sha256": "958039d9f09d684fd7b76418cbb1faf2dc548a19830640a6e10901cd1a841a8a",
+      "bytes": 120862
+    },
+    "puhguh.pkl": {
+      "sha256": "c14ab2edf6afeda7bf433e6576f1dd10ede7247676dec62a54e74aee85492099",
+      "bytes": 45562
+    }
+  },
+  "upstream_revision": "b852bd52c48cffe0e203b669a07fb198e36fff8e",
+  "game": {
+    "variant": "heads-up no-limit Texas Holdem",
+    "starting_stack_bb": 25,
+    "blinds": [
+      10,
+      20
+    ],
+    "stack_reset_per_hand": true,
+    "call_timeout_seconds": 10,
+    "tournament_format": {
+      "source": "organizer announcement 2026-11-07 15:55",
+      "round_one_hands_per_match": 400,
+      "round_two_qualifiers": 5,
+      "round_two_hands_per_match": 1200
+    }
+  },
+  "inference": "standard library plus organizer-provided modules; no GPU or external files",
+  "plain_pickle_protocol": 4,
+  "official_worker_verification": {
+    "hands": 32000,
+    "all_eligible": true,
+    "faults": 0,
+    "timeouts": 0,
+    "source_actions_compared": 10229,
+    "source_action_mismatches": 0,
+    "every_mirror_seed_exact_tie": true
+  },
+  "tests": {
+    "focused_project_tests_passed": 194,
+    "latest_organizer_model_and_docs_tests_passed": 11
+  },
+  "source_vet_findings": 0,
+  "status": "verified baseline prepared for publication"
+}
